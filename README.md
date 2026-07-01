@@ -1,130 +1,243 @@
-🏦 Banking Client Analytics Dashboard — Power BI
+📌 Project Overview
 
-A 4-page interactive Power BI dashboard analysing 3,000 banking clients across loans, deposits, risk profiling, and loyalty segmentation. Built as a portfolio project to demonstrate end-to-end data analyst skills including data transformation, DAX, and visual storytelling.
+Financial institutions receive thousands of loan applications every day. Evaluating each applicant manually is time-consuming and prone to inconsistencies.
 
+This project builds a complete analytics pipeline that:
 
-📁 Repository Structure
-
-banking-client-analytics/
+Stores customer banking data in a normalized MySQL database
+Cleans and transforms data using Python
+Engineers additional business features for better risk profiling
+Visualizes key banking and credit risk metrics in Power BI
+Helps decision-makers identify whether an applicant should be Approved, Reviewed, or Rejected
+🎯 Objectives
+Analyze customer financial behavior
+Identify high-risk loan applicants
+Improve loan approval decisions using data
+Monitor important banking KPIs
+Build an interactive dashboard for stakeholders
+🛠 Tech Stack
+Technology	Purpose
+Python (Pandas, NumPy)	Data Cleaning & Feature Engineering
+MySQL	Relational Database
+SQL	Data Extraction & Analysis
+Power BI	Dashboard & Visualization
+Excel/CSV	Source Dataset
+📂 Project Structure
+Banking-Risk-Analytics/
 │
-├── Banking_Dashboard.pbix        # Power BI report file
-├── BankEDA (Version 2)           # Insights
-├── BankEDA (Version 1)           # Insights
-├── banking-clients.csv           # Raw dataset (3,000 clients, 25 columns)
-├── README.md                     # Project documentation
+├── Dataset/
+│   ├── Client.csv
+│   ├── Banking_Relationship.csv
+│   └── Investment_Advisor.csv
 │
-└── screenshots/
-    ├── home.png
-    ├── loan_deposit.png
-    ├── deposit_analysis.png
-    └── summary.png
+├── SQL/
+│   ├── Database.sql
+│   ├── Table_Creation.sql
+│   ├── Constraints.sql
+│   └── Analysis_Queries.sql
+│
+├── Python/
+│   ├── Data_Cleaning.ipynb
+│   ├── Feature_Engineering.ipynb
+│   └── Export_Data.ipynb
+│
+├── PowerBI/
+│   └── Banking_Risk_Dashboard.pbix
+│
+├── Images/
+│   ├── Dashboard.png
+│   └── ER_Diagram.png
+│
+└── README.md
+🗄 Database Design
 
+The project uses a normalized relational database consisting of three interconnected tables.
 
-📊 Dashboard Pages
+Tables
+Client
 
-Page 1 — Home (Executive Overview)
+Contains customer demographic and financial information.
 
-High-level snapshot of the entire client portfolio for quick business decisions.
+Example columns
 
-VisualPurposeKPI Cards (×5)Total clients, Avg. income, Total deposits, Total loans, Avg. risk scoreDonut chartLoyalty tier distribution (Jade / Silver / Gold / Platinum)Clustered barClients by nationality split by genderTreemapFee structure (High/Mid/Low) cross-referenced with loyalty tierLine chartClient acquisition trend from 1995–2021GaugeAverage risk weighting across all clientsSlicersYear range, Nationality filter
+Client_ID (Primary Key)
+Name
+Age
+Gender
+Income
+Occupation
+Credit Score
+Banking Relationship
 
-Page 2 — Loan & Deposit (Product Portfolio)
+Contains customer banking details.
 
-Deep-dive into how clients hold debt and liquidity across different segments.
+Example columns
 
-VisualPurposeKPI Cards (×4)Total loans, Total deposits, Avg. CC balance, Avg. properties ownedScatter plotIncome vs. loan amount (colored by fee structure, sized by risk)Clustered columnLoans vs. deposits by loyalty tierStacked barAccount types (Checking/Saving/Foreign Currency) by fee structure100% Stacked columnCredit card count distribution by loyalty tierMatrix tableAvg. loans, deposits and business lending by nationality (with heatmap)SlicerRisk weighting filter (1–5)
+Relationship_ID
+Client_ID (Foreign Key)
+Account Type
+Loan Amount
+Loan Status
+Balance
+Repayment History
+Investment Advisor
 
-Page 3 — Deposit Analysis (Savings Behaviour)
+Contains investment and portfolio information.
 
-Focused analysis on how deposits, savings and superannuation are distributed.
+Example columns
 
-VisualPurposeKPI Cards (×3)Total superannuation, Avg. saving accounts, Total depositsFunnel chartAvg. deposits by loyalty tierColumn chartDeposit amount distribution (bucketed: 0–200K / 200K–500K / 500K–1M / 1M+)Area chartDeposit and savings trend by client join yearClustered barSuperannuation savings by age group (20s / 30s / 40s / 50s+)
+Advisor_ID
+Client_ID (Foreign Key)
+Investment Type
+Portfolio Value
+Risk Category
+Database Relationships
+Client
+   │
+   ├──────────────┐
+   │              │
+Banking      Investment
+Relationship   Advisor
+Primary Keys
+Foreign Keys
+Referential Integrity
+Normalized Schema
+🐍 Python Workflow
+Data Cleaning
+Removed duplicates
+Handled missing values
+Standardized column names
+Converted data types
+Corrected inconsistent values
+Feature Engineering
 
-Page 4 — Summary (Risk & Client Insights)
+Created additional business features such as:
 
-Boardroom-style summary with risk analysis and AI-powered influencer detection.
+Engagement Timeframe
 
-VisualPurposeKPI Cards (×5)Avg. risk score, Total business lending, Total properties, Medium/High risk client countKey Influencers (AI visual)Automatically identifies what drives changes in bank depositsClustered barAvg. risk score by fee structure, split by loyalty tierStacked columnBusiness lending by nationality, segmented by fee structure
+Measures customer relationship duration with the bank.
 
+Example:
 
-🔧 Technical Details
+Engagement Timeframe =
+Current Date − Customer Joining Date
 
-Tools Used
+Additional engineered insights include:
 
+Customer Age Groups
+Income Segmentation
+Loan Categories
+Credit Risk Labels
+📊 Power BI Dashboard
 
-Power BI Desktop — report building, visuals, slicers
-Power Query (M) — data transformation and calculated columns
-DAX — custom measures and KPIs
+The dashboard provides an interactive overview of banking performance and loan risk.
 
+Key KPIs
+Total Clients
+Total Loan Applications
+Loan Approval Rate
+Default Rate
+Average Credit Score
+Total Loan Amount
+Repayment Probability
+High-Risk Clients
+Client Segmentation
+Portfolio Value
+Dashboard Features
+Interactive Filters
+Client Drill-down
+Loan Risk Analysis
+Regional Analysis
+Customer Segmentation
+Credit Score Distribution
+Repayment Trends
+Investment Overview
+📈 Business Insights
 
-Power Query Transformations
+The dashboard helps answer questions such as:
 
-Calculated ColumnLogicJoin YearExtracted year from Joined Bank date columnAge GroupBucketed Age into 20s / 30s / 40s / 50s+Deposit BucketBanded Bank Deposits into 0–200K / 200K–500K / 500K–1M / 1M+Has Foreign AccountBinary Yes/No flag from Foreign Currency Account > 0Risk CategoryMapped Risk Weighting 1–2 = Low, 3 = Medium, 4–5 = High
+Which customers have the highest probability of default?
+Which age groups receive the most loans?
+Which customer segment has the highest repayment rate?
+What factors influence loan approval?
+Which clients require manual review?
+Which investment categories carry higher risk?
+📸 Dashboard Preview
 
-DAX Measures
+Add your dashboard screenshot here.
 
-daxTotal Bank Loans = SUM('banking-clients'[Bank Loans])
+Images/Dashboard.png
+🚀 How to Run
+1. Clone Repository
+git clone https://github.com/yourusername/Banking-Risk-Analytics.git
+2. Import Database
 
-Total Bank Deposits = SUM('banking-clients'[Bank Deposits])
+Run SQL scripts inside the SQL folder.
 
-Avg Estimated Income = AVERAGE('banking-clients'[Estimated Income])
+Database.sql
+Table_Creation.sql
+Constraints.sql
+3. Run Python Scripts
 
-High Risk Clients = 
-    COUNTROWS(FILTER('banking-clients', 'banking-clients'[Risk Weighting] >= 4))
+Install required libraries.
 
-Medium Risk Clients = 
-    COUNTROWS(FILTER('banking-clients', 'banking-clients'[Risk Weighting] = 3))
+pip install pandas numpy matplotlib
 
-Low Risk Clients = 
-    COUNTROWS(FILTER('banking-clients', 'banking-clients'[Risk Weighting] <= 2))
+Execute:
 
-Clients w/ Foreign Acct = 
-    COUNTROWS(FILTER('banking-clients', 'banking-clients'[Foreign Currency Account] > 0))
+Data_Cleaning.ipynb
+Feature_Engineering.ipynb
+4. Open Power BI
 
-Deposit Ratio = 
-    DIVIDE(SUM('banking-clients'[Bank Deposits]), SUM('banking-clients'[Estimated Income]))
+Open:
 
-Loan to Deposit Ratio = 
-    DIVIDE(SUM('banking-clients'[Bank Loans]), SUM('banking-clients'[Bank Deposits]))
+Banking_Risk_Dashboard.pbix
 
+Refresh the data connection.
 
-📂 Dataset Overview
+📊 Sample KPIs
+KPI	Description
+Total Clients	Number of banking customers
+Loan Approval Rate	Percentage of approved loans
+Default Rate	Percentage of customers likely to default
+Average Credit Score	Mean customer credit score
+Total Loan Amount	Sum of sanctioned loans
+High-Risk Clients	Customers flagged as risky
+Repayment Probability	Estimated likelihood of repayment
+💡 Skills Demonstrated
+Data Cleaning
+Feature Engineering
+SQL Queries
+Database Design
+Data Modeling
+Power BI Dashboard Development
+KPI Design
+Business Intelligence
+Credit Risk Analytics
+Banking Analytics
+Data Visualization
+Relational Database Management
+📚 Future Improvements
+Add Machine Learning model for loan approval prediction
+Integrate real-time banking data
+Implement customer churn prediction
+Deploy dashboard using Power BI Service
+Add predictive credit scoring model
+Automate ETL pipeline
+📌 Project Highlights
 
-ColumnDescriptionClient IDUnique client identifierAgeClient ageGenderIdClient genderNationalityAfrican / American / Asian / Australian / EuropeanOccupationClient professionLoyalty ClassificationJade / Silver / Gold / PlatinumFee StructureHigh / Mid / LowRisk Weighting1 (low risk) to 5 (high risk)Estimated IncomeAnnual income estimateBank DepositsTotal deposit balanceBank LoansTotal loan balanceSaving AccountsSavings account balanceChecking AccountsChecking account balanceCredit Card BalanceOutstanding CC balanceAmount of Credit CardsNumber of credit cards heldBusiness LendingBusiness loan balanceForeign Currency AccountForeign currency account balanceSuperannuation SavingsRetirement savings balanceProperties OwnedNumber of propertiesJoined BankDate client joined the bank
+✔ End-to-End Data Analytics Project
 
-Total rows: 3,000 | Total columns: 25
+✔ Normalized MySQL Database (3 Tables)
 
+✔ 1,000+ Banking Records
 
-💡 Key Insights
+✔ Python-Based Data Cleaning & Feature Engineering
 
+✔ Interactive Power BI Dashboard
 
-European clients account for the largest share of total business lending across all nationalities
-Jade tier holds the highest average deposits despite being the largest client segment (44.37%)
-High fee structure clients carry a higher average risk weighting than Low fee clients
-Superannuation savings are highest in the 30s age group, peaking before the 40s
-Risk Weighting ≤ 1 is the strongest influencer for a decrease in bank deposits (Key Influencers visual)
+✔ Credit Risk & Loan Approval Analytics
 
+✔ Business-Oriented KPIs
 
-
-🚀 How to Open
-
-
-Download and install Power BI Desktop (free)
-Clone or download this repository
-Open Banking_Dashboard.pbix in Power BI Desktop
-If prompted to locate the data source, point it to banking-clients.csv in the same folder
-
-
-
-👤 About
-
-Talha — Aspiring Data Analyst | B.Tech Information Technology (2026)
-
-Skilled in SQL, Python, Power BI, Excel and data storytelling. Actively seeking entry-level Data Analyst roles.
-
-Show Image
-
-
-📄 License
-
-This project is open for viewing and learning purposes. Dataset used for educational/portfolio purposes only.
+✔ Decision Support for Banking Institutions
