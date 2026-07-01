@@ -1,243 +1,94 @@
-📌 Project Overview
+Banking Risk Analytics & Loan Approval Dashboard
 
-Financial institutions receive thousands of loan applications every day. Evaluating each applicant manually is time-consuming and prone to inconsistencies.
+An end-to-end credit risk analytics pipeline that identifies high-risk loan applicants and supports data-driven Approve/Reject decisions for a simulated banking entity — built on a normalized MySQL database, feature-engineered with Python, and visualized in an interactive Power BI dashboard.
 
-This project builds a complete analytics pipeline that:
 
-Stores customer banking data in a normalized MySQL database
-Cleans and transforms data using Python
-Engineers additional business features for better risk profiling
-Visualizes key banking and credit risk metrics in Power BI
-Helps decision-makers identify whether an applicant should be Approved, Reviewed, or Rejected
-🎯 Objectives
-Analyze customer financial behavior
-Identify high-risk loan applicants
-Improve loan approval decisions using data
-Monitor important banking KPIs
-Build an interactive dashboard for stakeholders
-🛠 Tech Stack
-Technology	Purpose
-Python (Pandas, NumPy)	Data Cleaning & Feature Engineering
-MySQL	Relational Database
-SQL	Data Extraction & Analysis
-Power BI	Dashboard & Visualization
-Excel/CSV	Source Dataset
-📂 Project Structure
-Banking-Risk-Analytics/
-│
-├── Dataset/
-│   ├── Client.csv
-│   ├── Banking_Relationship.csv
-│   └── Investment_Advisor.csv
-│
-├── SQL/
-│   ├── Database.sql
-│   ├── Table_Creation.sql
-│   ├── Constraints.sql
-│   └── Analysis_Queries.sql
-│
-├── Python/
-│   ├── Data_Cleaning.ipynb
-│   ├── Feature_Engineering.ipynb
-│   └── Export_Data.ipynb
-│
-├── PowerBI/
-│   └── Banking_Risk_Dashboard.pbix
-│
-├── Images/
-│   ├── Dashboard.png
-│   └── ER_Diagram.png
-│
-└── README.md
-🗄 Database Design
+🧭 Overview
 
-The project uses a normalized relational database consisting of three interconnected tables.
+This project simulates a real-world banking analytics workflow: raw client and relationship data is modeled into a relational database, enriched with engineered risk features in Python, and surfaced through a Power BI dashboard that consolidates key credit risk KPIs into a single decision-support view — reducing the manual effort needed to review loan applicants.
 
-Tables
-Client
 
-Contains customer demographic and financial information.
+🛠️ Tech Stack
 
-Example columns
+LayerToolsDatabaseMySQLData Processing / Feature EngineeringPython (Pandas)VisualizationPower BI
 
-Client_ID (Primary Key)
-Name
-Age
-Gender
-Income
-Occupation
-Credit Score
-Banking Relationship
 
-Contains customer banking details.
+🗄️ Database Design
 
-Example columns
+Architected a normalized relational schema in MySQL with Primary/Foreign key constraints across three interconnected tables, ensuring referential integrity across 1,000+ records:
 
-Relationship_ID
-Client_ID (Foreign Key)
-Account Type
-Loan Amount
-Loan Status
-Balance
-Repayment History
-Investment Advisor
 
-Contains investment and portfolio information.
+Client — core applicant demographic and financial details
+Banking Relationship — account tenure, product holdings, and engagement history
+Investment Advisor — advisor assignment and portfolio management details
 
-Example columns
 
-Advisor_ID
-Client_ID (Foreign Key)
-Investment Type
-Portfolio Value
-Risk Category
-Database Relationships
-Client
-   │
-   ├──────────────┐
-   │              │
-Banking      Investment
-Relationship   Advisor
-Primary Keys
-Foreign Keys
-Referential Integrity
-Normalized Schema
-🐍 Python Workflow
-Data Cleaning
-Removed duplicates
-Handled missing values
-Standardized column names
-Converted data types
-Corrected inconsistent values
-Feature Engineering
+The tables are linked via foreign keys to maintain data consistency and support multi-table joins for risk analysis.
 
-Created additional business features such as:
+Client (1) ───< Banking_Relationship (M)
+Client (1) ───< Investment_Advisor (M)
 
-Engagement Timeframe
+(Replace with your actual ER diagram / schema image once added — see Repository Structure below.)
 
-Measures customer relationship duration with the bank.
 
-Example:
+⚙️ Feature Engineering
 
-Engagement Timeframe =
-Current Date − Customer Joining Date
+Using Python (Pandas), new features were engineered from raw relationship and client data to improve applicant risk profiling and predictive accuracy, including:
 
-Additional engineered insights include:
 
-Customer Age Groups
-Income Segmentation
-Loan Categories
-Credit Risk Labels
+Engagement Timeframe — a derived metric capturing the duration/depth of a client's banking relationship, used as a signal for credit reliability
+Additional derived fields supporting segmentation and risk scoring (e.g., tenure buckets, product usage ratios)
+
+
+
 📊 Power BI Dashboard
 
-The dashboard provides an interactive overview of banking performance and loan risk.
+An interactive Power BI dashboard consolidates 5+ credit risk KPIs into a single decision-support view, including:
 
-Key KPIs
-Total Clients
-Total Loan Applications
-Loan Approval Rate
-Default Rate
-Average Credit Score
-Total Loan Amount
+
 Repayment Probability
-High-Risk Clients
-Client Segmentation
-Portfolio Value
-Dashboard Features
-Interactive Filters
-Client Drill-down
-Loan Risk Analysis
-Regional Analysis
-Customer Segmentation
-Credit Score Distribution
-Repayment Trends
-Investment Overview
-📈 Business Insights
+Default Rate
+Client Segmentation (risk tiers)
+Loan Approve/Reject Distribution
+Engagement Timeframe Trends
 
-The dashboard helps answer questions such as:
 
-Which customers have the highest probability of default?
-Which age groups receive the most loans?
-Which customer segment has the highest repayment rate?
-What factors influence loan approval?
-Which clients require manual review?
-Which investment categories carry higher risk?
-📸 Dashboard Preview
+The dashboard reduces manual review complexity by giving credit teams a consolidated, filterable view of applicant risk instead of scanning raw records table by table.
 
-Add your dashboard screenshot here.
+(Add dashboard screenshots here once exported, e.g. /assets/dashboard-overview.png)
 
-Images/Dashboard.png
-🚀 How to Run
-1. Clone Repository
-git clone https://github.com/yourusername/Banking-Risk-Analytics.git
-2. Import Database
 
-Run SQL scripts inside the SQL folder.
+📁 Repository Structure
 
-Database.sql
-Table_Creation.sql
-Constraints.sql
-3. Run Python Scripts
+├── data/                   # Raw and processed datasets
+├── notebooks/               # Python (Pandas) feature engineering notebooks/scripts
+├── powerbi/                  # .pbix dashboard file
+├── assets/                    # Screenshots, ER diagrams
+└── README.md
 
-Install required libraries.
 
-pip install pandas numpy matplotlib
+🚀 How to Reproduce
 
-Execute:
 
-Data_Cleaning.ipynb
-Feature_Engineering.ipynb
-4. Open Power BI
+Set up the database
 
-Open:
 
-Banking_Risk_Dashboard.pbix
+bash   mysql -u <user> -p < sql/schema.sql
 
-Refresh the data connection.
 
-📊 Sample KPIs
-KPI	Description
-Total Clients	Number of banking customers
-Loan Approval Rate	Percentage of approved loans
-Default Rate	Percentage of customers likely to default
-Average Credit Score	Mean customer credit score
-Total Loan Amount	Sum of sanctioned loans
-High-Risk Clients	Customers flagged as risky
-Repayment Probability	Estimated likelihood of repayment
-💡 Skills Demonstrated
-Data Cleaning
-Feature Engineering
-SQL Queries
-Database Design
-Data Modeling
-Power BI Dashboard Development
-KPI Design
-Business Intelligence
-Credit Risk Analytics
-Banking Analytics
-Data Visualization
-Relational Database Management
-📚 Future Improvements
-Add Machine Learning model for loan approval prediction
-Integrate real-time banking data
-Implement customer churn prediction
-Deploy dashboard using Power BI Service
-Add predictive credit scoring model
-Automate ETL pipeline
-📌 Project Highlights
+Load and process data
 
-✔ End-to-End Data Analytics Project
 
-✔ Normalized MySQL Database (3 Tables)
+bash   pip install pandas mysql-connector-python
+   python notebooks/feature_engineering.py
 
-✔ 1,000+ Banking Records
 
-✔ Python-Based Data Cleaning & Feature Engineering
+Open the dashboard
 
-✔ Interactive Power BI Dashboard
+Open powerbi/loan_approval_dashboard.pbix in Power BI Desktop
+Refresh the data source to point to your local MySQL instance
 
-✔ Credit Risk & Loan Approval Analytics
 
-✔ Business-Oriented KPIs
-
-✔ Decision Support for Banking Institutions
+Ensured referential integrity across 1,000+ client records via normalized 3NF schema design
+Reduced manual credit review effort through a single consolidated KPI view
+Improved risk profiling accuracy with engineered features like Engagement Timeframe
