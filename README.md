@@ -1,37 +1,42 @@
-Banking Risk Analytics & Loan Approval Dashboard
+## Banking Risk Analytics & Loan Approval Dashboard
 
 An end-to-end credit risk analytics pipeline that identifies high-risk loan applicants and supports data-driven Approve/Reject decisions for a simulated banking entity — built on a normalized MySQL database, feature-engineered with Python, and visualized in an interactive Power BI dashboard.
 
+## Screenshot
+## home
 
-🧭 Overview
+![home](screenshot/home.png)
+
+## deposit analysis
+![deposit analysis](screenshot/deposit analysis.png)
+
+## loan deposit
+![loan deposit](screenshot/loan deposit.png)
+
+## summary
+![summary](screenshot/summary.png)
+
+## 🧭 Overview
 
 This project simulates a real-world banking analytics workflow: raw client and relationship data is modeled into a relational database, enriched with engineered risk features in Python, and surfaced through a Power BI dashboard that consolidates key credit risk KPIs into a single decision-support view — reducing the manual effort needed to review loan applicants.
 
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 LayerToolsDatabaseMySQLData Processing / Feature EngineeringPython (Pandas)VisualizationPower BI
 
 
-🗄️ Database Design
+## 🗄️ Database Design
 
 Architected a normalized relational schema in MySQL with Primary/Foreign key constraints across three interconnected tables, ensuring referential integrity across 1,000+ records:
 
 
 Client — core applicant demographic and financial details
 Banking Relationship — account tenure, product holdings, and engagement history
-Investment Advisor — advisor assignment and portfolio management details
+Investment Advisor — advisor assignment and portfolio management detail
 
 
-The tables are linked via foreign keys to maintain data consistency and support multi-table joins for risk analysis.
-
-Client (1) ───< Banking_Relationship (M)
-Client (1) ───< Investment_Advisor (M)
-
-(Replace with your actual ER diagram / schema image once added — see Repository Structure below.)
-
-
-⚙️ Feature Engineering
+## ⚙️ Feature Engineering
 
 Using Python (Pandas), new features were engineered from raw relationship and client data to improve applicant risk profiling and predictive accuracy, including:
 
@@ -41,7 +46,7 @@ Additional derived fields supporting segmentation and risk scoring (e.g., tenure
 
 
 
-📊 Power BI Dashboard
+## 📊 Power BI Dashboard
 
 An interactive Power BI dashboard consolidates 5+ credit risk KPIs into a single decision-support view, including:
 
