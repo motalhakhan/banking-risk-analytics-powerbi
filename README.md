@@ -8,10 +8,10 @@ An end-to-end credit risk analytics pipeline that identifies high-risk loan appl
 ![home](screenshot/home.png)
 
 ## deposit analysis
-![deposit analysis](screenshot/deposit analysis.png)
+![deposit_analysis](screenshot/deposit_analysis.png)
 
 ## loan deposit
-![loan deposit](screenshot/loan deposit.png)
+![loan_deposit](screenshot/loan_deposit.png)
 
 ## summary
 ![summary](screenshot/summary.png)
