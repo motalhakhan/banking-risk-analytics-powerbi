@@ -1,4 +1,4 @@
-## Banking Risk Analytics & Loan Approval Dashboard
+## Banking Risk Analytics Dashboard
 
 An end-to-end credit risk analytics pipeline that identifies high-risk loan applicants and supports data-driven Approve/Reject decisions for a simulated banking entity — built on a normalized MySQL database, feature-engineered with Python, and visualized in an interactive Power BI dashboard.
 
